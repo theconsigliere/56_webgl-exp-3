@@ -10,11 +10,11 @@ export default function Scene() {
   return (
     <Canvas dpr={[1, 2]} style={{ backgroundColor: "#141414" }}>
       <Perf position={"bottom-left"} />
-      {/* <directionalLight position={[0, 3, -2]} intensity={3} /> */}
+
       {/* <Environment preset="night" /> */}
       <OrbitControls makeDefault />
-      <Plane />
-      {/* <Model {...modelProps} /> */}
+      {/* <Plane /> */}
+      <Model position={[0, -0.5, 0]} />
 
       {/* <gridHelper
         args={[10, 40, "#404040", "#404040"]}

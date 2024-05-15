@@ -10,6 +10,7 @@ const NewShaderMaterial = shaderMaterial(
     pointer: new THREE.Vector2(),
     uRings: 0,
     uFract: 0,
+    uPointer: new THREE.Vector2(),
     // uColor1: new THREE.Color("#ff0000"),
     // uColor2: new THREE.Color("#00ff00"),
     // uColor3: new THREE.Color("#0000ff"),
@@ -34,6 +35,7 @@ const NewShaderMaterial = shaderMaterial(
       uniform vec2 uResolution;
       uniform vec2 pointer;
       uniform float uRings;
+      uniform vec2 uPointer;
       uniform float uFract;
 
       varying vec2 vUv;  
@@ -42,7 +44,7 @@ const NewShaderMaterial = shaderMaterial(
         vec3 a = vec3(0.5, 0.5, 0.5);
         vec3 b = vec3(0.5, 0.5, 0.5);
         vec3 c = vec3(1.0, 1.0, 1.0);
-        vec3 d = vec3(0.263, 0.416, 0.557);
+        vec3 d = vec3(0.00, 0.10, 0.20);
         return a + b * cos(6.28318 * (c * t + d));
       }
        
@@ -62,9 +64,13 @@ const NewShaderMaterial = shaderMaterial(
        // DIVIDE SCREEN INTO 4 QUADRANTS INTIALLY
        uv = fract(uv * uFract) - 0.5;
 
+       // displace UV by pointer
+       uv = sin(uv * 0.5) - uPointer;     
+       float distanceFromCenter = length(uv) * exp(-length(oldUv));
+   
 
 
-      float distanceFromCenter = length(uv);
+     //  float distanceFromCenter = length(uv);
 
       // Add palette
       vec3 color = palette(length(oldUv) + uTime);
